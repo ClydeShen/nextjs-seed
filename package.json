@@ -1,0 +1,41 @@
+{
+  "name": "nextjs-seed",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@mui/system": "^5.16.7",
+    "@mui/utils": "^5.16.6",
+    "@mui/x-date-pickers": "^7.12.1",
+    "axios": "^1.7.3",
+    "dayjs": "^1.11.12",
+    "lodash": "^4.17.21",
+    "next": "14.2.5",
+    "next-auth": "^4.24.7",
+    "notistack": "^3.0.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.2",
+    "react-number-format": "^5.4.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "typescript": "^5"
+  }
+}
