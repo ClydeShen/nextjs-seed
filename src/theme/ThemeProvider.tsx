@@ -17,6 +17,7 @@ export interface ThemeProviderProps {
   children?: React.ReactNode;
 }
 export const ThemeProvider = memo((props: ThemeProviderProps) => {
+  console.log(theme);
   return (
     <LocalizationProvider
       dateAdapter={AdapterDayjs}

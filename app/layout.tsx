@@ -1,4 +1,3 @@
-import SessionProvider from '@libs/nextauth';
 import { ThemeProvider } from '@theme';
 import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
@@ -29,9 +28,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <SessionProvider refetchInterval={7 * MINUTES}>
-          <ThemeProvider>{children}</ThemeProvider>
-        </SessionProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

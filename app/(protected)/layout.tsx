@@ -1,9 +1,9 @@
-import { AuthProvider } from '@hooks/useAuth';
+import { Layout } from '@components/Layout/Layout';
 
 export type LayoutProps = {
   children: React.ReactNode;
 };
 
 export default async function ProtectedLayout({ children }: LayoutProps) {
-  return <AuthProvider>{children}</AuthProvider>;
+  return <Layout>{children}</Layout>;
 }
