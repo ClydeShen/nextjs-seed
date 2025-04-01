@@ -27,6 +27,16 @@ export type FieldInputType =
   | 'typography'
   | 'boolean';
 
+export type FieldDataType =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | 'datetime'
+  | 'object'
+  | 'array'
+  | 'function';
+
 export type BlockType = 'regular' | 'table' | 'mdx';
 
 export type CellType =
@@ -73,7 +83,7 @@ export interface FieldValidation {
 // Field definition
 export interface Field {
   fuid: string;
-  type: FieldInputType;
+  type: FieldDataType;
   label: string;
   description?: string;
   validation?: FieldValidation;
@@ -98,6 +108,7 @@ export interface FieldInput {
 // Row structure
 export interface Row {
   label: string;
+  description?: string;
   type: FieldInputType;
   required?: boolean;
   fields: FieldInput[];
@@ -114,6 +125,7 @@ export interface TableColumn {
 // Block structure (regular block or table block)
 export interface Block {
   title?: string;
+  description?: string;
   type?: BlockType;
   rows?: Row[];
   columns?: TableColumn[];

@@ -52,10 +52,8 @@ const createCustomTheme = () => {
   const themeWithThemeColor = createTheme(theme, {
     palette: { ...generateThemeColor(theme) },
   });
-  console.log(themeWithThemeColor.palette);
   return responsiveFontSizes(themeWithThemeColor);
 };
 
 const myTheme = createCustomTheme();
-console.log(myTheme);
 export default myTheme;

@@ -1,10 +1,9 @@
 'use client';
+import formConfigJson from '@config/form.config.json';
 import { zodResolver } from '@hookform/resolvers/zod';
-import dayjs from '@libs/dayjs';
 import { testShema } from '@utils/validation';
 import { createContext, useContext } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-
 export interface FormContextValue {
   onSubmit?: (data: any) => void;
 }
@@ -13,16 +12,28 @@ export interface FormContextProviderProps {
 }
 const FormContext = createContext<FormContextValue>({});
 
-export const TestFormProvider = (props: FormContextProviderProps) => {
+const getDefaultValue = () => {
+  const defaultValues = formConfigJson.fields.reduce((_values, field) => {
+    const values = _values;
+    if (field.type === 'date' || field.type === 'datetime') {
+      values[field.fuid] = null;
+    } else if (field.type === 'boolean') {
+      values[field.fuid] = false;
+    } else {
+      values[field.fuid] = '';
+    }
+    return values;
+  }, {} as Record<string, any>);
+  console.log('defaultValues', defaultValues);
+  return defaultValues;
+};
+
+export const ConfigFormProvider = (props: FormContextProviderProps) => {
   const { children } = props;
+
   const form = useForm({
     defaultValues: {
-      shortInput: '',
-      selectInput: '',
-      numberInput: undefined,
-      checkboxInput: false,
-      autocompleteInput: undefined,
-      dateInput: dayjs(),
+      ...getDefaultValue(),
     },
     resolver: zodResolver(testShema),
   });
@@ -43,7 +54,7 @@ export const TestFormProvider = (props: FormContextProviderProps) => {
   );
 };
 
-const useTestForm = () => {
+const useConfigForm = () => {
   const context = useContext(FormContext);
   const form = useFormContext();
   if (context === undefined) {
@@ -51,4 +62,4 @@ const useTestForm = () => {
   }
   return { ...context, ...form };
 };
-export default useTestForm;
+export default useConfigForm;

@@ -13,6 +13,7 @@ export interface PageProps extends PaperProps {
   ContainerProps?: ContainerProps & StackProps;
   spacing?: number;
   fluid?: boolean;
+  maxWidth?: ContainerProps['maxWidth'];
 }
 
 export const Page = (props: PageProps) => {
@@ -22,6 +23,7 @@ export const Page = (props: PageProps) => {
     spacing = 2.5, //default spacing
     sx,
     fluid,
+    maxWidth,
     ...paperProps
   } = props;
 
@@ -50,7 +52,7 @@ export const Page = (props: PageProps) => {
         <Container
           id='page-container'
           component={Stack}
-          maxWidth={fluid ? false : 'xl'}
+          maxWidth={fluid ? false : maxWidth || 'lg'}
           disableGutters
           spacing={spacing}
           {...ContainerProps}
