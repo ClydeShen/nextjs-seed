@@ -1,4 +1,4 @@
-import { routes } from '@config/router';
+import { routes } from '@config/router.config';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
 import {

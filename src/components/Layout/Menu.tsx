@@ -1,5 +1,5 @@
 'use Client';
-import type { Route } from '@config/router';
+import type { Route } from '@config/router.config';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ViewAgendaOutlinedIcon from '@mui/icons-material/ViewAgendaOutlined';
 import ViewColumnOutlinedIcon from '@mui/icons-material/ViewColumnOutlined';

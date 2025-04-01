@@ -1,5 +1,5 @@
 'use client';
-import { routes } from '@config/router';
+import { routes } from '@config/router.config';
 import {
   Box,
   Breadcrumbs,
