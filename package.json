@@ -21,6 +21,7 @@
     "lodash": "^4.17.21",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
+    "next-mdx-remote": "^5.0.0",
     "notistack": "^3.0.1",
     "react": "^18",
     "react-dom": "^18",

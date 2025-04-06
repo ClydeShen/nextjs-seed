@@ -148,17 +148,24 @@ const baseThemeOptions = Object.freeze({
     },
   },
   typography: {
+    fontFamily: 'var(--font-source-sans-3)',
     fontSize,
+    fontWeightLight: FontWeight.LIGHT,
+    fontWeightRegular: FontWeight.REGULAR,
+    fontWeightMedium: FontWeight.MEDIUM,
+    fontWeightBold: FontWeight.BOLD,
     // Body Default
     body1: {
       fontSize: 16,
       fontWeight: FontWeight.REGULAR,
       lineHeight: 24 / 16,
+      letterSpacing: '-0.16px',
     },
     // Body Small
     body2: {
       fontSize: 14,
       fontWeight: FontWeight.REGULAR,
+      letterSpacing: '-0.14px',
       lineHeight: 16 / 14,
     },
     subtitle1: {
@@ -182,36 +189,44 @@ const baseThemeOptions = Object.freeze({
       fontWeight: FontWeight.MEDIUM,
     },
     h1: {
-      fontSize: 32,
-      lineHeight: 36 / 32,
+      fontFamily: 'var(--font-din)',
       fontWeight: FontWeight.BOLD,
+      fontSize: 32,
+      letterSpacing: '-0.32px',
+      lineHeight: 36 / 32,
     },
     h2: {
+      fontFamily: 'var(--font-din)',
       fontWeight: FontWeight.MEDIUM,
       fontSize: 24,
       lineHeight: 32 / 24,
     },
     h3: {
+      fontFamily: 'var(--font-din)',
       fontWeight: FontWeight.BOLD,
       fontSize: 20,
       lineHeight: 28 / 20,
     },
     h4: {
+      fontFamily: 'var(--font-din)',
       fontWeight: FontWeight.MEDIUM,
       fontSize: 18,
       lineHeight: 28 / 18,
+      letterSpacing: '-0.36px',
     },
     // Body Large
     h5: {
       fontSize: 18,
       lineHeight: 28 / 18,
       fontWeight: FontWeight.REGULAR,
+      letterSpacing: '-0.18px',
     },
     // Body Medium
     h6: {
       fontSize: 16,
       lineHeight: 24 / 16,
       fontWeight: FontWeight.MEDIUM,
+      letterSpacing: '-0.16px',
     },
   },
   shape: {

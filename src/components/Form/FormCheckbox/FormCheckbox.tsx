@@ -12,6 +12,7 @@ import { get, useController, useFormContext } from 'react-hook-form';
 export type FormTextfieldProps = TextFieldProps & {
   errorMessage?: string;
   name: string;
+  inline?: boolean;
 };
 
 export const FormCheckbox = (props: FormTextfieldProps) => {
@@ -23,6 +24,7 @@ export const FormCheckbox = (props: FormTextfieldProps) => {
     defaultValue = '',
     required,
     label,
+    inline = false,
     ...textFieldProps
   } = props;
   const autoId = useId();
@@ -31,7 +33,7 @@ export const FormCheckbox = (props: FormTextfieldProps) => {
   const {
     field,
     formState: { errors },
-  } = useController({ name, control });
+  } = useController({ name, control, shouldUnregister: true });
   const { ref, ...fieldProps } = field;
   const error = get(errors, name);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +43,11 @@ export const FormCheckbox = (props: FormTextfieldProps) => {
     <FormControl required={required} component='fieldset' variant='standard'>
       <FormGroup>
         <FormControlLabel
+          sx={{
+            '& .MuiCheckbox-root': {
+              p: 0,
+            },
+          }}
           control={
             <Checkbox
               {...fieldProps}

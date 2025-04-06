@@ -1,12 +1,22 @@
 'use client';
 import { FormCard } from '@components/FormLayout/FormCard';
-import { FormCardSection } from '@components/FormLayout/FormCardSection';
+import { DynamicFormCardSection } from '@components/FormLayout/FormCardSection';
+import { FormHeader } from '@components/FormLayout/FormHeader';
+import { FormNav } from '@components/FormLayout/FormNav';
 import { Page, PageHeader } from '@components/Page';
-import formConfigJson from '@config/form.config.json';
+import formConfigJson from '@config/form.config';
+import { useFormLayout } from '@hooks/useFormLayout/useFormLayout';
 import { Stack } from '@mui/material';
-import { Fragment, useMemo } from 'react';
+import { Fragment, useEffect, useMemo } from 'react';
 export interface ListFormProps {}
 const ListForm = (props: ListFormProps) => {
+  const { bindFormNav } = useFormLayout();
+  useEffect(() => {
+    const sectionId = formConfigJson.layout.sections.map((section) => {
+      return { label: section.title, value: section.id };
+    });
+    bindFormNav?.(sectionId, true);
+  }, []);
   const sections = useMemo(() => {
     return formConfigJson.layout.sections.map((section) => {
       return (
@@ -15,7 +25,7 @@ const ListForm = (props: ListFormProps) => {
             {section.children.map((block, i) => {
               return (
                 <Fragment key={`${section.id}-${i}`}>
-                  <FormCardSection block={block}></FormCardSection>
+                  <DynamicFormCardSection {...block} />
                 </Fragment>
               );
             })}
@@ -25,10 +35,20 @@ const ListForm = (props: ListFormProps) => {
     });
   }, []);
   return (
-    <Page maxWidth='lg'>
-      <PageHeader />
-      <Stack gap={4}>{sections}</Stack>
-    </Page>
+    <>
+      <FormHeader />
+      <Page maxWidth='lg' sx={{ pb: 20 }}>
+        <PageHeader />
+        <Stack>
+          <Stack id='form-container' direction={'row'} spacing={2} flexGrow={1}>
+            <Stack gap={4} flexGrow={1}>
+              {sections}
+            </Stack>
+            <FormNav />
+          </Stack>
+        </Stack>
+      </Page>
+    </>
   );
 };
 export default ListForm;

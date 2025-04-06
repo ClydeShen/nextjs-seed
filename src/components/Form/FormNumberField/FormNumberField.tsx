@@ -38,7 +38,7 @@ export const FormNumberField = (
   const {
     field,
     formState: { errors },
-  } = useController({ name, control });
+  } = useController({ name, control, shouldUnregister: true });
   const { ref, onChange, ...fieldProps } = field;
   const error = get(errors, name);
   const onValueChange = (values: NumberFormatValues) => {

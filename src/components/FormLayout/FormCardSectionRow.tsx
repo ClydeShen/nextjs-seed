@@ -1,17 +1,20 @@
+'use client';
+
 import { FormDynamicInput } from '@components/Form/FormDynamicInput';
 import { FormLabel, Stack, Typography } from '@mui/material';
-import type { FieldInput } from 'form';
+import { when } from '@utils/helper';
+import type { Row } from 'form';
 import { Fragment, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
-export interface FormCardSectionRowProps {
+export interface FormCardSectionRowLayoutProps extends Row {
   children?: React.ReactNode;
-  label?: string;
-  description?: string;
-  requried?: boolean;
-  fields: FieldInput[];
 }
-export const FormCardSectionRow = (props: FormCardSectionRowProps) => {
-  const { children, label, description, requried, fields } = props;
+
+export const FormCardSectionRow = (props: FormCardSectionRowLayoutProps) => {
+  const { label, description, required, fields, hide } = props;
+  const { watch } = useFormContext();
+  const shouldBe = when(watch);
   const formInputs = useMemo(() => {
     return fields?.map((field, i) => {
       return (
@@ -20,7 +23,8 @@ export const FormCardSectionRow = (props: FormCardSectionRowProps) => {
         </Fragment>
       );
     });
-  }, []);
+  }, [fields]);
+  if (hide && shouldBe(hide)) return null;
   return (
     <Stack
       id={label}
@@ -53,7 +57,7 @@ export const FormCardSectionRow = (props: FormCardSectionRowProps) => {
                 md: 'clamp(100px, 100%, 380px)',
               },
               '&::after': {
-                content: requried ? '"*"' : '""',
+                content: required ? '"*"' : '""',
                 color: 'error.main',
               },
             }}

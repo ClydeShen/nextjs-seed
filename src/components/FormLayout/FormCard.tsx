@@ -1,3 +1,4 @@
+import { useFormLayout } from '@hooks/useFormLayout/useFormLayout';
 import { Add, Remove } from '@mui/icons-material';
 import {
   Accordion,
@@ -7,7 +8,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
 
 export interface FormCardProps {
   children?: React.ReactNode;
@@ -16,15 +16,20 @@ export interface FormCardProps {
 }
 export const FormCard = (props: FormCardProps) => {
   const { children, id, title } = props;
-  const [isExpanded, setIsExpended] = useState(false);
+  const { sectionExpanded, onToggleSection } = useFormLayout();
   const handleChange = () => {
-    setIsExpended(!isExpanded);
+    onToggleSection?.(id);
   };
   return (
-    <Stack id={id}>
+    <Stack
+      id={id}
+      sx={{
+        scrollMarginTop: 144,
+      }}
+    >
       <Accordion
         variant='outlined'
-        expanded={isExpanded}
+        expanded={!!sectionExpanded[id]?.isExpanded}
         onChange={handleChange}
         sx={{
           '&.MuiPaper-root': {
@@ -38,7 +43,9 @@ export const FormCard = (props: FormCardProps) => {
         <AccordionSummary>
           <Stack direction='row' justifyContent='space-between' width='100%'>
             <Typography variant='h2'>{title}</Typography>
-            <Stack>{isExpanded ? <Remove /> : <Add />}</Stack>
+            <Stack>
+              {sectionExpanded[id]?.isExpanded ? <Remove /> : <Add />}
+            </Stack>
           </Stack>
         </AccordionSummary>
         <Divider sx={{ mb: 3 }} />

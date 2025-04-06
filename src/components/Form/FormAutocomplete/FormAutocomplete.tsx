@@ -36,7 +36,7 @@ export const FormAutocomplete = (props: FormAutocompleteProps) => {
   const {
     field,
     formState: { errors },
-  } = useController({ name, control });
+  } = useController({ name, control, shouldUnregister: true });
   const { ref: fieldRef, onChange, value: fieldValue, ...fieldProps } = field;
   const error = get(errors, name);
   const changeHandler = (

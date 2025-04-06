@@ -1,7 +1,8 @@
 'use client';
-import formConfigJson from '@config/form.config.json';
+import formConfigJson from '@config/form.config';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { testShema } from '@utils/validation';
+import { getFromDefaultValue } from '@utils/helper';
+import { createSchema } from '@utils/validation';
 import { createContext, useContext } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 export interface FormContextValue {
@@ -11,32 +12,21 @@ export interface FormContextProviderProps {
   children?: React.ReactNode;
 }
 const FormContext = createContext<FormContextValue>({});
-
-const getDefaultValue = () => {
-  const defaultValues = formConfigJson.fields.reduce((_values, field) => {
-    const values = _values;
-    if (field.type === 'date' || field.type === 'datetime') {
-      values[field.fuid] = null;
-    } else if (field.type === 'boolean') {
-      values[field.fuid] = false;
-    } else {
-      values[field.fuid] = '';
-    }
-    return values;
-  }, {} as Record<string, any>);
-  console.log('defaultValues', defaultValues);
-  return defaultValues;
-};
-
+const defaultValues = getFromDefaultValue(formConfigJson);
+const schema = createSchema(formConfigJson);
+console.log('defaultValues', defaultValues);
+console.log('schema', schema);
 export const ConfigFormProvider = (props: FormContextProviderProps) => {
   const { children } = props;
 
   const form = useForm({
     defaultValues: {
-      ...getDefaultValue(),
+      ...defaultValues,
     },
-    resolver: zodResolver(testShema),
+    resolver: zodResolver(schema),
+    shouldUnregister: true,
   });
+
   const { handleSubmit } = form;
   const submitHandler = (data) => {
     console.log(data);
@@ -47,8 +37,10 @@ export const ConfigFormProvider = (props: FormContextProviderProps) => {
   const onSubmit = handleSubmit(submitHandler, errorHandler);
   return (
     <FormProvider {...form}>
-      <FormContext.Provider value={{ onSubmit }}>
-        {children}
+      <FormContext.Provider value={{}}>
+        <form onSubmit={onSubmit} noValidate>
+          {children}
+        </form>
       </FormContext.Provider>
     </FormProvider>
   );

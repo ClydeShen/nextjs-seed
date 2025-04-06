@@ -1,12 +1,13 @@
 import { MenuItem, TextField, TextFieldProps } from '@mui/material';
-import { LabelValue } from '@utils/types';
+import { LabelValue } from 'global';
 import { useId } from 'react';
 import { get, useController, useFormContext } from 'react-hook-form';
 
 export type FormTextfieldProps = TextFieldProps & {
   errorMessage?: string;
   name: string;
-  options: LabelValue[];
+  options: readonly LabelValue[];
+  inline?: boolean;
 };
 
 export const FormSelector = (props: FormTextfieldProps) => {
@@ -17,6 +18,7 @@ export const FormSelector = (props: FormTextfieldProps) => {
     disabled,
     defaultValue = '',
     options,
+    inline = false,
     ...textFieldProps
   } = props;
   const autoId = useId();
@@ -25,7 +27,7 @@ export const FormSelector = (props: FormTextfieldProps) => {
   const {
     field,
     formState: { errors },
-  } = useController({ name, control });
+  } = useController({ name, control, shouldUnregister: true });
   const { ref, ...fieldProps } = field;
   const error = get(errors, name);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +37,16 @@ export const FormSelector = (props: FormTextfieldProps) => {
     <TextField
       {...fieldProps}
       {...textFieldProps}
+      sx={{
+        ...(inline && {
+          '& .MuiInputBase-root': {
+            '& .MuiInputBase-input': {
+              px: 1,
+              py: 0.2,
+            },
+          },
+        }),
+      }}
       ref={ref}
       id={_id}
       onChange={onChange}

@@ -1,33 +1,37 @@
-import { Stack, SxProps, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+import { BlockType } from '@utils/constants';
 import { Block } from 'form';
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
+import { FormCardMarkdownSection } from './FormCardMarkdownSection';
+import { FormCardProductSection } from './FormCardProductSection';
 import { FormCardSectionRow } from './FormCardSectionRow';
-
-export interface FormCardSectionProps {
+interface FormCardSectionLayoutProps {
   children?: React.ReactNode;
-  summary?: React.ReactNode;
+  description?: React.ReactNode;
   title?: string;
-  sx?: SxProps;
+}
+
+export interface DynamicFormCardSectionProps {
   block: Block;
 }
-export const FormCardSection = (props: FormCardSectionProps) => {
-  const { block } = props;
-  const { title, description, type, rows, columns, template } = block;
 
-  const formRows = useMemo(() => {
-    return rows?.map((row, i) => {
-      return (
-        <Fragment key={`${row.label}-${i}`}>
-          <FormCardSectionRow
-            label={row.label}
-            requried={row.required}
-            description={row.description}
-            fields={row.fields}
-          />
-        </Fragment>
-      );
-    });
-  }, []);
+const FormCardSection = (block: Block) => {
+  const { title, description, type, rows, columns } = block;
+  return (
+    <FormCardSectionLayout title={title} description={description}>
+      {rows?.map((row, i) => {
+        return (
+          <Fragment key={`${row.label}-${i}`}>
+            <FormCardSectionRow {...row} />
+          </Fragment>
+        );
+      })}
+    </FormCardSectionLayout>
+  );
+};
+
+const FormCardSectionLayout = (props: FormCardSectionLayoutProps) => {
+  const { children, title, description } = props;
   return (
     <Stack spacing={2}>
       {(title || description) && (
@@ -36,7 +40,19 @@ export const FormCardSection = (props: FormCardSectionProps) => {
           {description && <Typography>{description}</Typography>}
         </Stack>
       )}
-      <Stack spacing={2}>{formRows}</Stack>
+      <Stack spacing={2}>{children}</Stack>
     </Stack>
   );
+};
+
+export const DynamicFormCardSection = (block: Block) => {
+  const { type } = block;
+  switch (type) {
+    case BlockType.PRODUCT:
+      return <FormCardProductSection {...block} />;
+    case BlockType.MDX:
+      return <FormCardMarkdownSection {...block} />;
+    default:
+      return <FormCardSection {...block} />;
+  }
 };

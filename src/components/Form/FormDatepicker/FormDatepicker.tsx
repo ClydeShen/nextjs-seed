@@ -7,6 +7,7 @@ import { get, useController, useFormContext } from 'react-hook-form';
 export type FormTextfieldProps = TextFieldProps & {
   errorMessage?: string;
   name: string;
+  inline?: boolean;
 };
 
 export const FormDatepicker = (props: FormTextfieldProps) => {
@@ -16,6 +17,7 @@ export const FormDatepicker = (props: FormTextfieldProps) => {
     errorMessage,
     disabled,
     defaultValue = '',
+    inline = false,
     ...textFieldProps
   } = props;
   const autoId = useId();
@@ -25,7 +27,7 @@ export const FormDatepicker = (props: FormTextfieldProps) => {
   const {
     field,
     formState: { errors },
-  } = useController({ name, control });
+  } = useController({ name, control, shouldUnregister: true });
   const { ref, value, ...fieldProps } = field;
   const error = get(errors, name);
   const onChange = (value: Dayjs | null) => {
@@ -34,6 +36,16 @@ export const FormDatepicker = (props: FormTextfieldProps) => {
   return (
     <DatePicker
       {...fieldProps}
+      sx={{
+        ...(inline && {
+          '& .MuiInputBase-root': {
+            '& .MuiInputBase-input': {
+              px: 1,
+              py: 0.2,
+            },
+          },
+        }),
+      }}
       ref={ref}
       value={value}
       onChange={onChange}

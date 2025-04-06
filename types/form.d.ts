@@ -33,11 +33,14 @@ export type FieldDataType =
   | 'boolean'
   | 'date'
   | 'datetime'
+  | 'email'
   | 'object'
   | 'array'
   | 'function';
 
-export type BlockType = 'regular' | 'table' | 'mdx';
+export type BlockType = 'regular' | 'table' | 'mdx' | 'product';
+
+export type RowType = 'regular' | 'mdx';
 
 export type CellType =
   | 'typography'
@@ -51,28 +54,43 @@ export interface Condition {
   operator: OperatorType;
   value?: any;
 }
-
-export interface DynamicCondition {
-  if?: Condition;
+export interface When {
+  if: Condition;
 }
+export type DynamicBoolean = boolean | When;
 
-export type DynamicBoolean = boolean | DynamicCondition;
-
-// Validation rules and messages
-export interface ValidationRules {
-  required?: DynamicBoolean;
+export interface StringValidationRules {
+  required?: boolean;
   maxLength?: number;
-  min?: number;
-  range?: { min?: string | number; max?: string | number };
+  minLength?: number;
+  regex?: string;
   email?: boolean;
 }
+export interface NumberValidationRules {
+  required?: boolean;
+  min?: number;
+  max?: number;
+}
+export interface DateValidationRules {
+  required?: boolean;
+  min?: number;
+  max?: number;
+}
+// Validation rules and messages
+export interface ValidationRules
+  extends StringValidationRules,
+    NumberValidationRules,
+    DateValidationRules {}
 
 export interface ValidationMessages {
   required?: string;
   maxLength?: string;
+  minLength?: string;
+  max?: string;
   min?: string;
   range?: string;
   email?: string;
+  regex?: string;
 }
 
 export interface FieldValidation {
@@ -84,8 +102,10 @@ export interface FieldValidation {
 export interface Field {
   fuid: string;
   type: FieldDataType;
+  parent?: string;
   label: string;
   description?: string;
+  defaultValue?: any;
   validation?: FieldValidation;
   readOnly?: boolean;
   placeholder?: string;
@@ -107,12 +127,13 @@ export interface FieldInput {
 
 // Row structure
 export interface Row {
-  label: string;
+  label?: string;
+  type?: RowType;
+  template?: string;
   description?: string;
-  type: FieldInputType;
   required?: boolean;
   fields: FieldInput[];
-  hide?: DynamicCondition;
+  hide?: DynamicBoolean;
 }
 
 // Table column definition
@@ -129,8 +150,7 @@ export interface Block {
   type?: BlockType;
   rows?: Row[];
   columns?: TableColumn[];
-  template?: string;
-  hide?: DynamicCondition;
+  hide?: DynamicBoolean;
 }
 
 // Section structure
@@ -144,7 +164,6 @@ export interface Section {
 export interface Layout {
   sections: Section[];
 }
-
 // Config JSON structure
 export interface ConfigJSON {
   templateId: string;
@@ -156,5 +175,7 @@ export interface ConfigJSON {
     catalogue?: string[];
   };
   fields: Field[];
-  layout: Layout;
+  layout?: Layout;
+  product?: Layout;
+  declarationGroup?: Layout;
 }
