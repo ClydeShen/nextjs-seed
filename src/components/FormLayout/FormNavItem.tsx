@@ -20,7 +20,7 @@ const FormNavItem = memo((props: FormNavItemProps) => {
   const { currentSection, onSelectSection } = useFormLayout();
   const isSelected = currentSection === id;
   const onClick = () => {
-    onSelectSection?.(id);
+    onSelectSection?.(id, true);
   };
   return (
     <MuiListItemButton

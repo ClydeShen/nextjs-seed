@@ -1,8 +1,11 @@
 import { Button, Paper, Stack, Typography } from '@mui/material';
 
-export interface FormHeaderProps {}
+export interface FormHeaderProps {
+  title?: string;
+}
 
 export const FormHeader = (props: FormHeaderProps) => {
+  const { title } = props;
   return (
     <Stack
       component={Paper}
@@ -30,7 +33,7 @@ export const FormHeader = (props: FormHeaderProps) => {
         }}
       >
         <Stack>
-          <Typography variant='h3'>Form Title</Typography>
+          <Typography variant='h3'>{title}</Typography>
           <Stack direction='row' alignItems='center' spacing={0.5}>
             <Typography>Certificate</Typography>
             <Typography variant='body2'>123</Typography>

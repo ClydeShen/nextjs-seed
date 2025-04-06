@@ -11,6 +11,7 @@ import { Fragment, useEffect, useMemo } from 'react';
 export interface ListFormProps {}
 const ListForm = (props: ListFormProps) => {
   const { bindFormNav } = useFormLayout();
+
   useEffect(() => {
     const sectionId = formConfigJson.layout.sections.map((section) => {
       return { label: section.title, value: section.id };
@@ -36,16 +37,14 @@ const ListForm = (props: ListFormProps) => {
   }, []);
   return (
     <>
-      <FormHeader />
+      <FormHeader title='List form example' />
       <Page maxWidth='lg' sx={{ pb: 20 }}>
         <PageHeader />
-        <Stack>
-          <Stack id='form-container' direction={'row'} spacing={2} flexGrow={1}>
-            <Stack gap={4} flexGrow={1}>
-              {sections}
-            </Stack>
-            <FormNav />
+        <Stack id='form-container' direction={'row'} spacing={2} flexGrow={1}>
+          <Stack id='form-content' gap={4} flexGrow={1}>
+            {sections}
           </Stack>
+          <FormNav />
         </Stack>
       </Page>
     </>

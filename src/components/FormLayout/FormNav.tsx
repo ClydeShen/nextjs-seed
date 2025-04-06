@@ -10,22 +10,19 @@ import {
   Paper,
   Stack,
 } from '@mui/material';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import FormNavItem from './FormNavItem';
 interface FormNavProps {
   children?: React.ReactNode;
 }
 const drawerWidth = 270;
 export const FormNav = (props: FormNavProps) => {
-  const { sectionExpanded, onToggleAllSections } = useFormLayout();
-  const [allExpanded, setAllExpanded] = useState(false);
+  const { allExpanded, sectionExpanded, onToggleAllSections } = useFormLayout();
   const { height } = useWindowSize();
   const maxHeight = height - 420;
 
   const handleToggleAllSections = () => {
-    const isAllExpanded = !allExpanded;
-    setAllExpanded(isAllExpanded);
-    onToggleAllSections?.(isAllExpanded);
+    onToggleAllSections?.();
   };
   return (
     <Stack id='form-nav' width={drawerWidth} spacing={2}>

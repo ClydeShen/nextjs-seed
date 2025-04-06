@@ -14,8 +14,7 @@ export interface FormContextProviderProps {
 const FormContext = createContext<FormContextValue>({});
 const defaultValues = getFromDefaultValue(formConfigJson);
 const schema = createSchema(formConfigJson);
-console.log('defaultValues', defaultValues);
-console.log('schema', schema);
+
 export const ConfigFormProvider = (props: FormContextProviderProps) => {
   const { children } = props;
 

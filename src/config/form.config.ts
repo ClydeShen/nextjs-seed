@@ -39,7 +39,7 @@ const formConfig = {
         },
         messages: {
           required: 'Due date is required',
-          range: 'Due date must be today or later',
+          min: 'Due date must be today or later',
         },
       },
     },
@@ -123,7 +123,6 @@ const formConfig = {
         },
         messages: {
           required: 'Departure date/time is required',
-          range: 'Departure date/time must be now or later',
         },
       },
     },
@@ -298,7 +297,6 @@ const formConfig = {
               },
               {
                 label: 'Due date for final certificate',
-
                 required: true,
                 fields: [
                   {

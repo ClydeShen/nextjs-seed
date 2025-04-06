@@ -1,4 +1,5 @@
 import dayjs, { Dayjs } from '@libs/dayjs';
+import { REQUIRED_MESSAGE } from '@utils/constants/message';
 import {
   DateValidationRules,
   Field,
@@ -13,15 +14,15 @@ export const dayjsInstance = zod.instanceof(dayjs as unknown as typeof Dayjs, {
   message: 'required',
 });
 
-export const dateInput = zod
-  .string({
-    // this is to handle possible null value and to make the error message consistent otherwise it will show 'Expected string, received null' or something like that
-    message: 'required',
-  })
-  .datetime()
-  .transform((v: string) => {
-    return v && dayjs(v);
-  });
+export const dateInput = ({ message = REQUIRED_MESSAGE }) =>
+  zod
+    .string({
+      message,
+    })
+    .datetime()
+    .transform((v: string) => {
+      return v && dayjs(v);
+    });
 
 export const dateOutput = dayjsInstance
   .refine((v) => v.isValid(), { message: 'Invalid date' })
@@ -57,15 +58,13 @@ const createNumberSchema =
 const createDateSchema =
   (messages: ValidationMessages) => (rule: DateValidationRules) => {
     const { min, max } = rule;
-    const dateRange = dateInput.refine((date) => {
-      if (min) {
-        return dayjs(date).isAfter(dayjs(min), 'day');
-      }
-      if (max) {
-        return dayjs(date).isBefore(dayjs(max), 'day');
-      }
-      return true;
-    });
+    const dateRange = dateInput({ message: messages?.required })
+      .refine((date) => !min || dayjs(date).isAfter(dayjs(min), 'day'), {
+        message: messages?.min,
+      })
+      .refine((date) => !max || dayjs(date).isBefore(dayjs(max), 'day'), {
+        message: messages?.max,
+      });
     let fieldSchema = zod.union([dateRange, dateOutput]);
     return fieldSchema;
   };
@@ -73,15 +72,13 @@ const createDateSchema =
 const createDateTimeSchema =
   (messages: ValidationMessages) => (rule: DateValidationRules) => {
     const { min, max } = rule;
-    const dateRange = dateInput.refine((date) => {
-      if (min) {
-        return dayjs(date).isAfter(dayjs(min));
-      }
-      if (max) {
-        return dayjs(date).isBefore(dayjs(max));
-      }
-      return true;
-    });
+    const dateRange = dateInput({ message: messages?.required })
+      .refine((date) => !min || dayjs(date).isAfter(dayjs(min)), {
+        message: messages?.min,
+      })
+      .refine((date) => !max || dayjs(date).isBefore(dayjs(max)), {
+        message: messages?.max,
+      });
     let fieldSchema = zod.union([dateRange, dateOutput]);
     return fieldSchema;
   };

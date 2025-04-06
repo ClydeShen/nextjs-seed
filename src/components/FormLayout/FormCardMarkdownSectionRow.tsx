@@ -16,7 +16,6 @@ export const FormCardMarkdownSectionRow = (props: Row) => {
       if (!template) return;
       // Process markdown and serialize for MDX
       const mdxSource = await serialize(template);
-      console.log('mdxSource', mdxSource);
       setProcessedContent(mdxSource);
     };
 
