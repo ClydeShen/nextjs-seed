@@ -22,7 +22,11 @@ const ListForm = (props: ListFormProps) => {
     return formConfigJson.layout.sections.map((section) => {
       return (
         <Fragment key={section.id}>
-          <FormCard id={section.id} title={section.title}>
+          <FormCard
+            id={section.id}
+            title={section.title}
+            actions={section.actions}
+          >
             {section.children.map((block, i) => {
               return (
                 <Fragment key={`${section.id}-${i}`}>

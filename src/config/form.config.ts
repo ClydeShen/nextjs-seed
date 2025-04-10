@@ -397,29 +397,39 @@ const formConfig = {
       {
         id: 'product',
         title: 'Products',
+        actions: [
+          {
+            label: 'Add product',
+            type: 'button',
+            functions: ['addProduct'],
+          },
+          {
+            label: 'Add product',
+            type: 'button',
+            functions: ['addProduct'],
+          },
+        ],
         children: [
           {
-            type: 'product',
-            columns: [
+            title: 'Product details',
+            type: 'tabContent',
+            rows: [
               {
-                label: 'Product',
-                type: 'typography',
-                fieldRef: '_productName',
-              },
-              {
-                label: 'Quantity',
-                type: 'typography',
-                fieldRef: '_productQuantity',
-              },
-              {
-                label: 'Unit price',
-                type: 'typography',
-                fieldRef: '_productUnitPrice',
-              },
-              {
-                label: 'Total price',
-                type: 'typography',
-                fieldRef: '_productTotalPrice',
+                fields: [
+                  {
+                    title: 'Orgin',
+                    fieldRef: '_productName',
+                  },
+                  {
+                    title: 'Orgin',
+                    fieldRef: '_productName',
+                  },
+                  ,
+                  {
+                    title: 'Orgin',
+                    fieldRef: '_productName',
+                  },
+                ],
               },
             ],
           },

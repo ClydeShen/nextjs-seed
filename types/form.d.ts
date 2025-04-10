@@ -153,11 +153,17 @@ export interface Block {
   hide?: DynamicBoolean;
 }
 
+export interface SectionAction {
+  label?: string;
+  type?: string;
+  functions?: string[];
+}
 // Section structure
 export interface Section {
   id: string;
   title?: string;
   children: Block[];
+  actions?: SectionAction[];
 }
 
 // Layout structure
@@ -177,5 +183,6 @@ export interface ConfigJSON {
   fields: Field[];
   layout?: Layout;
   product?: Layout;
+  review: Layout;
   declarationGroup?: Layout;
 }
