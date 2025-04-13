@@ -10,14 +10,14 @@ import { Stack } from '@mui/material';
 import { Fragment, useEffect, useMemo } from 'react';
 
 export interface TabFormProps {}
+const layoutSections = formConfigJson.layout.sections.map((section) => {
+  return { label: section.title, value: section.id };
+});
 const TabForm = (props: TabFormProps) => {
   const { bindFormNav, onSelectSection } = useFormLayout();
   useEffect(() => {
-    const sectionId = formConfigJson.layout.sections.map((section) => {
-      return { label: section.title, value: section.id };
-    });
-    bindFormNav?.(sectionId, true);
-    onSelectSection?.(sectionId[0].value);
+    bindFormNav?.(layoutSections, true);
+    onSelectSection?.(layoutSections?.[0]?.value);
   }, []);
   const sections = useMemo(() => {
     return formConfigJson.layout.sections.map((section) => {
@@ -43,10 +43,7 @@ const TabForm = (props: TabFormProps) => {
       <Page maxWidth='lg' sx={{ pb: 20 }}>
         <PageHeader />
         <Stack spacing={4}>
-          <FormTabs />
-          <Stack id='form-container' direction={'row'} spacing={2} flexGrow={1}>
-            {sections}
-          </Stack>
+          <FormTabs sections={formConfigJson.layout.sections} />
         </Stack>
       </Page>
     </>

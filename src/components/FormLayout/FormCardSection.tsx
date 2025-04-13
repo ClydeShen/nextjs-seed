@@ -11,18 +11,17 @@ interface FormCardSectionLayoutProps {
   title?: string;
 }
 
-export interface DynamicFormCardSectionProps {
-  block: Block;
+export interface DynamicFormCardSectionProps extends Block {
+  parent?: string;
 }
-
-const FormCardSection = (block: Block) => {
-  const { title, description, type, rows, columns } = block;
+const FormCardSection = (props: DynamicFormCardSectionProps) => {
+  const { title, description, type, rows, columns, parent } = props;
   return (
     <FormCardSectionLayout title={title} description={description}>
       {rows?.map((row, i) => {
         return (
           <Fragment key={`${row.label}-${i}`}>
-            <FormCardSectionRow {...row} />
+            <FormCardSectionRow {...row} parent={parent} />
           </Fragment>
         );
       })}
@@ -44,15 +43,14 @@ const FormCardSectionLayout = (props: FormCardSectionLayoutProps) => {
     </Stack>
   );
 };
-
-export const DynamicFormCardSection = (block: Block) => {
-  const { type } = block;
+export const DynamicFormCardSection = (props: DynamicFormCardSectionProps) => {
+  const { type } = props;
   switch (type) {
     case BlockType.PRODUCT:
-      return <FormCardProductSection {...block} />;
+      return <FormCardProductSection {...props} />;
     case BlockType.MDX:
-      return <FormCardMarkdownSection {...block} />;
+      return <FormCardMarkdownSection {...props} />;
     default:
-      return <FormCardSection {...block} />;
+      return <FormCardSection {...props} />;
   }
 };

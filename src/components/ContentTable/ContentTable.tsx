@@ -9,8 +9,8 @@ import {
   TableSortLabel,
 } from '@mui/material';
 import { TableColumn } from 'form';
-import { get } from 'lodash';
 import { Fragment, useMemo } from 'react';
+import { Cell } from './TableCell';
 
 export interface TableData {
   [key: string]: any;
@@ -44,7 +44,12 @@ export const ContentTable = (props: ContentTableProps) => {
           <TableRow hover>
             {columns.map((col, colIndex) => {
               return (
-                <TableCell key={colIndex}>{get(row, col.fieldRef)}</TableCell>
+                <Cell
+                  key={colIndex}
+                  row={row}
+                  type={col.type}
+                  fieldRef={col.fieldRef}
+                />
               );
             })}
           </TableRow>

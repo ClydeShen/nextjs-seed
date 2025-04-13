@@ -10,16 +10,18 @@ import { FormTextField } from './FormTextField';
 export interface FormDynamicInput {
   field: FieldInput;
   inline?: boolean;
+  parent?: string;
 }
 export const FormDynamicInput = (props: FormDynamicInput) => {
-  const { field, inline } = props;
+  const { field, inline, parent } = props;
   const { fieldRef, type, placeholder, readOnly, options } = field;
+  const name = `${parent ? `${parent}.` : ''}${fieldRef}`;
   switch (type) {
     case InputType.DATE:
       return (
         <FormDatepicker
-          id={fieldRef}
-          name={fieldRef}
+          id={name}
+          name={name}
           placeholder={placeholder}
           inline={inline}
         />
@@ -27,8 +29,8 @@ export const FormDynamicInput = (props: FormDynamicInput) => {
     case InputType.DATETIME:
       return (
         <FormDateTimePicker
-          id={fieldRef}
-          name={fieldRef}
+          id={name}
+          name={name}
           placeholder={placeholder}
           inline={inline}
         />
@@ -36,8 +38,8 @@ export const FormDynamicInput = (props: FormDynamicInput) => {
     case InputType.RADIO:
       return (
         <FormRadioGroup
-          id={fieldRef}
-          name={fieldRef}
+          id={name}
+          name={name}
           options={options as readonly LabelValue[]}
           inline={inline}
         />
@@ -45,20 +47,20 @@ export const FormDynamicInput = (props: FormDynamicInput) => {
     case InputType.SELECT:
       return (
         <FormSelector
-          id={fieldRef}
-          name={fieldRef}
+          id={name}
+          name={name}
           options={options as readonly LabelValue[]}
           inline={inline}
         />
       );
     case InputType.CHECKBOX:
-      return <FormCheckbox id={fieldRef} name={fieldRef} inline={inline} />;
+      return <FormCheckbox id={name} name={name} inline={inline} />;
 
     case InputType.TEXTAREA:
       return (
         <FormTextField
-          id={fieldRef}
-          name={fieldRef}
+          id={name}
+          name={name}
           placeholder={placeholder}
           multiline
           rows={2}
@@ -68,8 +70,8 @@ export const FormDynamicInput = (props: FormDynamicInput) => {
     default:
       return (
         <FormTextField
-          id={fieldRef}
-          name={fieldRef}
+          id={name}
+          name={name}
           placeholder={placeholder}
           inline={inline}
         />

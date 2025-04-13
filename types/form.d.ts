@@ -123,6 +123,7 @@ export interface FieldInput {
   placeholder?: string;
   readOnly?: boolean;
   options?: LabelValue[];
+  columns?: TableColumn;
 }
 
 // Row structure
@@ -134,6 +135,7 @@ export interface Row {
   required?: boolean;
   fields: FieldInput[];
   hide?: DynamicBoolean;
+  columns?: TableColumn;
 }
 
 // Table column definition
@@ -145,6 +147,7 @@ export interface TableColumn {
 
 // Block structure (regular block or table block)
 export interface Block {
+  id?: string;
   title?: string;
   description?: string;
   type?: BlockType;
@@ -153,10 +156,16 @@ export interface Block {
   hide?: DynamicBoolean;
 }
 
+export interface Action {
+  label?: string;
+  type?: string;
+  steps?: string[];
+}
+
 export interface SectionAction {
   label?: string;
   type?: string;
-  functions?: string[];
+  steps?: string[];
 }
 // Section structure
 export interface Section {
@@ -183,6 +192,6 @@ export interface ConfigJSON {
   fields: Field[];
   layout?: Layout;
   product?: Layout;
-  review: Layout;
+  review?: Layout;
   declarationGroup?: Layout;
 }

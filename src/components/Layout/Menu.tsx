@@ -10,6 +10,8 @@ const MenuIcons = Object.freeze({
   '/': <HomeOutlinedIcon fontSize='small' />,
   '/list-form': <ViewAgendaOutlinedIcon fontSize='small' />,
   '/tab-form': <ViewColumnOutlinedIcon fontSize='small' />,
+  '/product-form': <ViewColumnOutlinedIcon fontSize='small' />,
+  '/view': <ViewAgendaOutlinedIcon fontSize='small' />,
 });
 interface ReduceChildRoutesProps {
   list: React.ReactNode[];

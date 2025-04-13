@@ -47,7 +47,7 @@ export const FormCard = (props: FormCardProps) => {
       note: params,
     };
   };
-  const readProduct = (config: string) => (params?: object) => {
+  const redirectToProductPage = (config: string) => (params?: object) => {
     return {
       ...params,
       title: config,
@@ -55,15 +55,16 @@ export const FormCard = (props: FormCardProps) => {
   };
   const actionFunctions: Record<string, Func> = {
     addProduct: addProduct(id),
-    readProduct: readProduct(title as string),
+    redirectToProductPage: redirectToProductPage(title as string),
   };
   const handleActions =
-    (functions: string[]) => async (e: React.MouseEvent<HTMLButtonElement>) => {
+    (steps: string[]) => async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       try {
         const callTo = createActions(actionFunctions);
-        const applyActions = callTo(functions);
-        const result = await applyActions('description......');
+        const applyActions = callTo(steps);
+        const result = await applyActions('function call:');
+        console.log('result', result);
       } catch (error) {}
     };
 
@@ -94,9 +95,12 @@ export const FormCard = (props: FormCardProps) => {
           <Stack direction='row' justifyContent='space-between' width='100%'>
             <Typography variant='h2'>{title}</Typography>
             {actions ? (
-              <Stack>
+              <Stack direction='row' spacing={1}>
                 {actions.map((action, i) => (
-                  <Button onClick={handleActions(action.functions as string[])}>
+                  <Button
+                    key={i}
+                    onClick={handleActions(action.steps as string[])}
+                  >
                     {action.label}
                   </Button>
                 ))}
@@ -123,6 +127,3 @@ export const FormCard = (props: FormCardProps) => {
     </Stack>
   );
 };
-function pipePromise(arg0: any[]) {
-  throw new Error('Function not implemented.');
-}

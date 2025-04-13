@@ -33,12 +33,12 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             <Card
-              title='Start list form'
+              title='Tab form'
               description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
               color='primary'
               actions={
                 <Stack spacing={1.5}>
-                  <Link href='/list-form' disableGutters prefetch>
+                  <Link href='/tab-form' disableGutters prefetch>
                     <Button
                       variant='contained'
                       aria-label='Start list form'
@@ -53,15 +53,15 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             <Card
-              title='Learn more'
+              title='Product form'
               description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
               color='primary'
               actions={
                 <Stack spacing={1.5}>
-                  <Link href='/' disableGutters prefetch>
+                  <Link href='/product-form' disableGutters prefetch>
                     <Button
                       variant='contained'
-                      aria-label='Learn more'
+                      aria-label='Product form'
                       endIcon={<ArrowForwardIcon aria-hidden='true' />}
                     >
                       learn more

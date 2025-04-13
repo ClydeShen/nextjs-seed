@@ -401,35 +401,38 @@ const formConfig = {
           {
             label: 'Add product',
             type: 'button',
-            functions: ['addProduct'],
+            steps: ['addProduct'],
           },
           {
-            label: 'Add product',
+            label: 'All Products',
             type: 'button',
-            functions: ['addProduct'],
+            steps: ['redirectToProductPage'],
           },
         ],
         children: [
           {
             title: 'Product details',
-            type: 'tabContent',
-            rows: [
+            type: 'product',
+            columns: [
               {
-                fields: [
-                  {
-                    title: 'Orgin',
-                    fieldRef: '_productName',
-                  },
-                  {
-                    title: 'Orgin',
-                    fieldRef: '_productName',
-                  },
-                  ,
-                  {
-                    title: 'Orgin',
-                    fieldRef: '_productName',
-                  },
-                ],
+                label: 'Product',
+                type: 'link',
+                fieldRef: '_productName',
+              },
+              {
+                label: 'Quantity',
+                type: 'typography',
+                fieldRef: '_productQuantity',
+              },
+              {
+                label: 'Unit price',
+                type: 'typography',
+                fieldRef: '_productUnitPrice',
+              },
+              {
+                label: 'Total price',
+                type: 'typography',
+                fieldRef: '_productTotalPrice',
               },
             ],
           },
@@ -576,6 +579,84 @@ I confirm that these transport details are correct and align with the planned sh
             ],
           },
         ],
+      },
+    ],
+  },
+  product: {
+    sections: [
+      {
+        id: 'product',
+        title: 'Product details',
+        children: [
+          {
+            rows: [
+              {
+                label: 'Product',
+                required: true,
+                fields: [
+                  {
+                    fieldRef: '_productName',
+                    type: 'text',
+                    placeholder: 'Enter product name',
+                  },
+                ],
+              },
+              {
+                label: 'Quantity',
+                required: true,
+                fields: [
+                  {
+                    fieldRef: '_productQuantity',
+                    type: 'number',
+                    placeholder: 'Enter product quantity',
+                  },
+                ],
+              },
+              {
+                label: 'Unit price',
+                required: true,
+                fields: [
+                  {
+                    fieldRef: '_productUnitPrice',
+                    type: 'number',
+                    placeholder: 'Enter unit price',
+                  },
+                ],
+              },
+              {
+                label: 'Total price',
+                required: true,
+                fields: [
+                  {
+                    fieldRef: '_productTotalPrice',
+                    type: 'number',
+                    placeholder: 'Enter total price',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'process',
+        title: 'Process',
+        children: [{}],
+      },
+      {
+        id: 'classification',
+        title: 'Classification',
+        children: [{}],
+      },
+      {
+        id: 'sources',
+        title: 'Sources',
+        children: [{}],
+      },
+      {
+        id: 'supporting-documents',
+        title: 'Supporting documents',
+        children: [{}],
       },
     ],
   },

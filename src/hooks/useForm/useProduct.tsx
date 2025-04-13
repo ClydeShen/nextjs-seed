@@ -1,6 +1,6 @@
 import formConfigJson from '@config/form.config';
 import { getFieldGroup } from '@utils/helper';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
 interface UseProductProps {}
@@ -18,12 +18,12 @@ export const useProduct = () => {
     shouldUnregister: true,
   });
   useEffect(() => {
+    addProduct();
+  }, []);
+  const addProduct = useCallback(() => {
     append({
       ...fieldGroup['product'],
     });
-    return () => {
-      replace([]);
-    };
   }, []);
-  return { productFieldArray };
+  return { productFieldArray, addProduct };
 };

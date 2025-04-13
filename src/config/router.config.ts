@@ -16,7 +16,17 @@ export const routes: readonly Route[] = Object.freeze([
   },
   {
     label: 'Tab form',
-    pathname: RegExp(/^(\/(products)(\/.*)?|\/)?$/),
+    pathname: RegExp(/^(\/(tab-form)(\/.*)?|\/)?$/),
     path: '/tab-form',
+  },
+  {
+    label: 'Product form',
+    pathname: RegExp(/^(\/(product-form)(\/.*)?|\/)?$/),
+    path: '/product-form',
+  },
+  {
+    label: 'View request',
+    pathname: RegExp(/^(\/(view)(\/.*)?|\/)?$/),
+    path: '/view',
   },
 ]);

@@ -9,17 +9,18 @@ import { useFormContext } from 'react-hook-form';
 
 export interface FormCardSectionRowLayoutProps extends Row {
   children?: React.ReactNode;
+  parent?: string;
 }
 
 export const FormCardSectionRow = (props: FormCardSectionRowLayoutProps) => {
-  const { label, description, required, fields, hide } = props;
+  const { label, description, required, fields, hide, parent } = props;
   const { watch } = useFormContext();
   const shouldBe = when(watch);
   const formInputs = useMemo(() => {
     return fields?.map((field, i) => {
       return (
         <Fragment key={`${field.fieldRef}-${i}`}>
-          <FormDynamicInput field={field} />
+          <FormDynamicInput field={field} parent={parent} />
         </Fragment>
       );
     });
