@@ -4,8 +4,9 @@ import { Link } from '@components/Link';
 import { Page, PageHeader } from '@components/Page';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button, Grid, Stack } from '@mui/material';
+
 const Home = () => {
-  const onClick = async () => {};
+  const onClick = () => {};
   return (
     <Page>
       <PageHeader title='Kia ora' description='Welcome to Awesome App' />
@@ -67,6 +68,13 @@ const Home = () => {
                       learn more
                     </Button>
                   </Link>
+                  <Button
+                    variant='contained'
+                    aria-label='Product form'
+                    onClick={onClick}
+                  >
+                    test
+                  </Button>
                 </Stack>
               }
             />
