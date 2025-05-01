@@ -54,10 +54,11 @@ export interface Condition {
   operator: OperatorType;
   value?: any;
 }
-export interface When {
-  if: Condition;
+
+export interface ConditionRule {
+  if?: Condition;
+  then?: Condition;
 }
-export type DynamicBoolean = boolean | When;
 
 export interface StringValidationRules {
   required?: boolean;
@@ -80,7 +81,9 @@ export interface DateValidationRules {
 export interface ValidationRules
   extends StringValidationRules,
     NumberValidationRules,
-    DateValidationRules {}
+    DateValidationRules {
+  custom?: ConditionRule;
+}
 
 export interface ValidationMessages {
   required?: string;
