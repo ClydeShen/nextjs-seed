@@ -10,13 +10,14 @@ import {
   Typography,
 } from '@mui/material';
 import dynamic from 'next/dynamic';
-import { Willow } from 'wx-react-gantt';
 import 'wx-react-gantt/dist/gantt.css';
 // Dynamically import Gantt with no SSR and explicitly reference the named export
 const Gantt = dynamic(() => import('wx-react-gantt').then((mod) => mod.Gantt), {
   ssr: false,
 });
-
+const Willow = dynamic(() => import('wx-react-gantt').then((mod) => mod.Willow), {
+  ssr: false,
+});
 const MyGanttComponent = () => {
   const tasks = [
     {
